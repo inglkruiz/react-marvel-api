@@ -64,8 +64,10 @@
     flex-flow: row wrap;
 
     .Character {
-      &:not(:nth-child(3n+1)) {
-        margin-left: .5%;
+      width: 24.5%;
+
+      &:not(:nth-child(4n+1)) {
+        margin-left: .66%;
       }
     }
   }

@@ -2,7 +2,6 @@
 
 .Character {
   @include box-shadow(0 2px 4px 0 rgba(0, 0, 0, 0.4));
-  width: 33%;
   display: flex;
   flex-flow: column nowrap;
   margin-bottom: 15px;
@@ -16,11 +15,14 @@
     background-color: black;
     color: white;
     margin: 0;
-    padding: 20px 0 10px;
+    padding: 20px 10px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &-image {
-    height: 396px;
+    height: 292px;
     background: {
       position: center;
       size: cover;

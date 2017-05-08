@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import PageButton from './pageButton';
 // import './style.css';
 
 function getPages(current) {
@@ -58,13 +59,11 @@ class Paginator extends Component {
             </a>
           </li>
           {
-            this.state.pages
-              .map((i) =>
-                <li key={`page-${i}`}
-                    className={this.props.current === i ? 'active': ''}>
-                  <a role="button" onClick={() => this.props.onChangePage(i)}>{i}</a>
-                </li>
-              )
+            this.state.pages.map((i) =>
+              <PageButton key={`page-${i}`}
+                          page={i}
+                          current={this.props.current}
+                          clickHandler={this.props.onChangePage}/>)
           }
           <li>
             <a role="button" aria-label="Next"
