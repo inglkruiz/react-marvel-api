@@ -28,7 +28,7 @@ class App extends Component {
     this.previousPages = this.previousPages.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     getMarvelCharactersCall(0).then((characters) => {
       this.setState({ characters, page: 1 });
     });
