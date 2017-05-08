@@ -1,0 +1,40 @@
+@import "../../variables";
+
+.Character {
+  @include box-shadow(0 2px 4px 0 rgba(0, 0, 0, 0.4));
+  width: 33%;
+  display: flex;
+  flex-flow: column nowrap;
+  margin-bottom: 15px;
+  border: {
+    width: 1px;
+    style: solid;
+    color: $gray-light;
+  };
+
+  &-name {
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 20px 0 10px;
+  }
+
+  &-image {
+    height: 396px;
+    background: {
+      position: center;
+      size: cover;
+      repeat: no-repeat;
+    };
+  }
+
+  &-description {
+    padding: 5px 10px 0;
+  }
+
+  &-link.btn {
+    font-family: "Oswald";
+    margin-top: auto;
+    border-radius: 0;
+  }
+}

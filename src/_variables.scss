@@ -1,0 +1,24 @@
+@import  "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables",
+  "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+// React Marve API => (rma)
+$rma-red: #F11E22;
+
+$rma-btn-primary-bg: #f0141e;
+
+// Bootstrap variables overwrite
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+$font-family-sans-serif:  "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+
+$btn-font-weight:                600;
+
+$btn-primary-color:              #fff;
+$btn-primary-bg:                 $rma-btn-primary-bg;
+$btn-primary-border:             darken($rma-btn-primary-bg, 5%);
