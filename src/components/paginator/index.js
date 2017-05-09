@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PageButton from './pageButton';
-// import './style.css';
+import './style.css';
 
 function getPages(current) {
   const pages = [];
@@ -14,23 +14,9 @@ function getPages(current) {
 }
 
 class Paginator extends Component {
-
-  static propTypes = {
-    current: PropTypes.number.isRequired,
-    onChangePage: PropTypes.func,
-    onNext: PropTypes.func,
-    onPrevious: PropTypes.func,
+  state = {
+    pages: getPages(this.props.current),
   };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      pages: getPages(props.current),
-    };
-
-    this.previous = this.previous.bind(this);
-  }
 
   componentWillReceiveProps(nextProps) {
     if(this.state.pages.indexOf(nextProps.current) === -1) {
@@ -38,7 +24,7 @@ class Paginator extends Component {
     }
   }
 
-  previous() {
+  previous = () => {
     const minPage = this.state.pages[0];
     if(minPage > 1) {
       this.setState({
@@ -76,5 +62,12 @@ class Paginator extends Component {
     );
   }
 }
+
+Paginator.propTypes = {
+  current: PropTypes.number.isRequired,
+  onChangePage: PropTypes.func,
+  onNext: PropTypes.func,
+  onPrevious: PropTypes.func,
+};
 
 export default Paginator;

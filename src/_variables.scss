@@ -5,13 +5,16 @@ $rma-red: #F11E22;
 
 $rma-btn-primary-bg: #f0141e;
 
+$rma-font-family-oswald:  'Oswald', sans-serif;
+$rma-font-family-raleway:  'Raleway', sans-serif;
+
 // Bootstrap variables overwrite
 
 //== Typography
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-base:  $rma-font-family-raleway;
 
 //== Buttons
 //
@@ -22,3 +25,19 @@ $btn-font-weight:                600;
 $btn-primary-color:              #fff;
 $btn-primary-bg:                 $rma-btn-primary-bg;
 $btn-primary-border:             darken($rma-btn-primary-bg, 5%);
+
+//== Pagination
+//
+//##
+
+$pagination-color:                     white;
+$pagination-bg:                        black;
+$pagination-border:                    white;
+
+$pagination-hover-color:               black;
+$pagination-hover-bg:                  white;
+$pagination-hover-border:              $rma-red;
+
+$pagination-active-color:              white;
+$pagination-active-bg:                 $rma-btn-primary-bg;
+$pagination-active-border:             white;

@@ -1,77 +1,44 @@
 @import "variables";
-
 .App {
   margin: 0 auto;
   width: 100%;
   max-width: $screen-lg-desktop;
-
-
-  .Header {
-    background-color: black;
-    padding: 20px 20px 10px;
-    color: white;
-    display: flex;
-    justify-content: flex-end;
-
-    .MarvelBrand{
-      margin-left: auto;
-
-      &-logo {
-        height: 80px;
-      }
-    }
-
-
-    &-title {
-      margin-bottom: 0;
-    }
-  }
-
   &-navbar {
-    font-family: 'Oswald';
-
+    font-family: $rma-font-family-oswald;
     &.navbar {
-      @include box-shadow(0 2px 5px 0 rgba(0,0,0,0.4));
+      @include box-shadow(0 2px 5px 0 rgba(0, 0, 0, 0.4));
       border: 0;
       border: {
         radius: 0;
         bottom: 1px #b5b5b5 solid;
       }
-
       .navbar-nav {
         a {
           color: black;
-
           &:hover {
             color: $rma-red;
             background-color: initial;
           }
-
           .h4 {
             font-weight: 600;
           }
         }
-
-        & > li.active > a {
+        &>li.active>a {
           color: $rma-red;
         }
       }
     }
   }
-
   &-body {
     display: flex;
     flex-flow: row wrap;
-
     .Character {
       width: 24.5%;
-
       &:not(:nth-child(4n+1)) {
         margin-left: .66%;
       }
     }
   }
-
   .Paginator {
     width: 100%;
   }

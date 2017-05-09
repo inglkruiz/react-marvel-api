@@ -1,0 +1,20 @@
+.pagination> {
+  li> {
+    a:hover,
+    a:focus,
+    span:hover,
+    span:focus {
+      font-weight: 600;
+    }
+  }
+  .active> {
+    a,
+    a:focus,
+    a:hover,
+    span,
+    span:focus,
+    span:hover {
+      font-weight: 600;
+    }
+  }
+}

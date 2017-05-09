@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Character from './components/character';
 import Paginator from './components/paginator';
+import Header from './components/header';
 
 const getMarvelCharactersCall = (offset) =>
   fetch(`https://gateway.marvel.com/v1/public/characters?apikey=${process.env.REACT_APP_PUBLIC_API_KEY}&offset=${offset}`)
@@ -16,17 +16,10 @@ const getMarvelCharactersCall = (offset) =>
     });
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      characters: [],
-      page: 0,
-    };
-
-    this.changePage = this.changePage.bind(this);
-    this.nextPages = this.nextPages.bind(this);
-    this.previousPages = this.previousPages.bind(this);
-  }
+  state = {
+    characters: [],
+    page: 0,
+  };
 
   componentWillMount() {
     getMarvelCharactersCall(0).then((characters) => {
@@ -34,7 +27,7 @@ class App extends Component {
     });
   }
 
-  changePage(page) {
+  changePage = (page) => {
     if(page !== this.state.page) {
       const offset = (page-1)*20;
       getMarvelCharactersCall(offset).then((characters) => {
@@ -43,11 +36,11 @@ class App extends Component {
     }
   }
 
-  nextPages(maxPage) {
+  nextPages = (maxPage) => {
     this.changePage(maxPage+1);
   }
 
-  previousPages(minPage) {
+  previousPages = (minPage) => {
     if(minPage > 1) {
       this.changePage(minPage-1)
     }
@@ -56,13 +49,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="Header">
-          <h1 className="Header-title">ReactJS Marvel Searcher</h1>
-          <div className="MarvelBrand">
-            <img src={logo} className="img-responsive center-block MarvelBrand-logo" alt="Marvel logo" />
-            <small>Data provided by Marvel. © 2017 MARVEL</small>
-          </div>
-        </header>
+        <Header />
         <nav className="navbar App-navbar">
           <ul className="nav navbar-nav">
             <li className="active"><a href="#"><span className="h4">Characters</span></a></li>
