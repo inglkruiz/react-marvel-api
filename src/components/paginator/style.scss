@@ -1,20 +1,25 @@
-.pagination> {
-  li> {
-    a:hover,
-    a:focus,
-    span:hover,
-    span:focus {
-      font-weight: 600;
-    }
+.Paginator {
+  &__go2Page {
+    width: 100px;
   }
-  .active> {
-    a,
-    a:focus,
-    a:hover,
-    span,
-    span:focus,
-    span:hover {
-      font-weight: 600;
+  .pagination> {
+    li> {
+      a:hover,
+      a:focus,
+      span:hover,
+      span:focus {
+        font-weight: 600;
+      }
+    }
+    .active> {
+      a,
+      a:focus,
+      a:hover,
+      span,
+      span:focus,
+      span:hover {
+        font-weight: 600;
+      }
     }
   }
 }
