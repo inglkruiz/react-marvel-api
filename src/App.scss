@@ -1,8 +1,19 @@
 @import "variables";
+
 .App {
   margin: 0 auto;
   width: 100%;
   max-width: $screen-lg-desktop;
+  .Filters {
+    .panel {
+      &-heading:hover {
+        cursor: pointer;
+      }
+      &-title {
+        font-weight: 600;
+      }
+    }
+  }
   &-navbar {
     font-family: $rma-font-family-oswald;
     &.navbar {
@@ -23,13 +34,13 @@
             font-weight: 600;
           }
         }
-        &>li.active>a {
+        & > li.active > a {
           color: $rma-red;
         }
       }
     }
   }
-  &-body {
+  &-characters {
     display: flex;
     flex-flow: row wrap;
     .Character {
@@ -38,8 +49,5 @@
         margin-left: .66%;
       }
     }
-  }
-  .Paginator {
-    width: 100%;
   }
 }

@@ -1,12 +1,12 @@
-@import  "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables",
-  "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+@import "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables",
+"../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
 // React Marve API => (rma)
 $rma-red: #F11E22;
 
 $rma-btn-primary-bg: #f0141e;
 
-$rma-font-family-oswald:  'Oswald', sans-serif;
-$rma-font-family-raleway:  'Raleway', sans-serif;
+$rma-font-family-oswald: 'Oswald', sans-serif;
+$rma-font-family-raleway: 'Raleway', sans-serif;
 
 // Bootstrap variables overwrite
 
@@ -14,30 +14,37 @@ $rma-font-family-raleway:  'Raleway', sans-serif;
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-base:  $rma-font-family-raleway;
+$font-family-base: $rma-font-family-raleway;
 
 //== Buttons
 //
 //## For each of Bootstrap's buttons, define text, background and border color.
 
-$btn-font-weight:                600;
+$btn-font-weight: 600;
 
-$btn-primary-color:              #fff;
-$btn-primary-bg:                 $rma-btn-primary-bg;
-$btn-primary-border:             darken($rma-btn-primary-bg, 5%);
+$btn-primary-color: #fff;
+$btn-primary-bg: $rma-btn-primary-bg;
+$btn-primary-border: darken($rma-btn-primary-bg, 5%);
 
 //== Pagination
 //
 //##
 
-$pagination-color:                     white;
-$pagination-bg:                        black;
-$pagination-border:                    white;
+$pagination-color: white;
+$pagination-bg: black;
+$pagination-border: white;
 
-$pagination-hover-color:               black;
-$pagination-hover-bg:                  white;
-$pagination-hover-border:              $rma-red;
+$pagination-hover-color: black;
+$pagination-hover-bg: white;
+$pagination-hover-border: $rma-red;
 
-$pagination-active-color:              white;
-$pagination-active-bg:                 $rma-btn-primary-bg;
-$pagination-active-border:             white;
+$pagination-active-color: white;
+$pagination-active-bg: $rma-btn-primary-bg;
+$pagination-active-border: white;
+
+//== Panels
+//
+//##
+
+$panel-primary-border:        $rma-red;
+$panel-primary-heading-bg:    black;

@@ -27,7 +27,7 @@ class Paginator extends Component {
   }
 
   componentWillMount() {
-    this.setState({ pages: this.setPages(this.props.page, this.props.maxPage)})
+    this.setPages(this.props.page, this.props.maxPage);
   }
 
   setPages = (page, maxPage) => {
@@ -40,32 +40,34 @@ class Paginator extends Component {
         }
       }
     }
-    return pages;
+    this.setState({pages});
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.state.pages.indexOf(nextProps.page) === -1) {
-      this.setState({pages: this.setPages(nextProps.page, nextProps.maxPage)});
+      this.setPages(nextProps.page, nextProps.maxPage);
     }
   }
 
   previous = () => {
     const minPage = this.state.pages[0];
     if (minPage > 1) {
-      this.setState({
-        pages: this.setPages(minPage - 5),
-      });
+      this.setPages(minPage - 5, this.props.maxPage);
       this.props.onPrevious(minPage);
     }
   }
 
   handleChange = (event) => {
-    // event.preventDefault();
-    if(event.key === 'Enter') {
+    if (event.key === 'Enter') {
       const page = +event.target.value;
       try {
-        if (isNaN(page) || page === 0 || page > this.props.maxPage) { throw new Error('Invalid number page.'); }
-        else { this.props.onChangePage(page); }
+        if (isNaN(page) || page === 0 || page > this.props.maxPage) {
+          throw new Error('Invalid number page.');
+        }
+        else {
+          this.props.onChangePage(page);
+          this.refs.input.value = '';
+        }
       } catch (e) {
         console.error(e);
         this.refs.input.value = '';
@@ -76,7 +78,7 @@ class Paginator extends Component {
   render() {
     return (
       <div className="Paginator">
-        <div className="form-group-lg text-center center-block Paginator__go2Page">
+        <div className="form-group-lg text-center center-block Paginator-go2Page">
           <label htmlFor="go2Page">Go to Page</label>
           <input id="go2Page"
                  ref="input"
