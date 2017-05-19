@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Header from './components/header';
-import {Panel, ButtonToolbar, Button} from 'react-bootstrap';
 import Character from './components/character';
 import Paginator from './components/paginator';
+import Filters from './components/filters';
 
 const getMarvelCharactersCall = (offset, name = '') => {
   let url = `https://gateway.marvel.com/v1/public/characters?apikey=${process.env.REACT_APP_PUBLIC_API_KEY}&offset=${offset}`;
@@ -35,29 +35,20 @@ const getMarvelCharactersCall = (offset, name = '') => {
     });
 }
 
-
 class App extends Component {
   state = {
-    filters: {
-      name: ''
-    },
     characters: [],
     page: 0,
     maxPage: 0,
   };
 
   componentWillMount() {
-    getMarvelCharactersCall(0).then(({characters, maxPage}) => {
-      this.setState({characters, page: 1, maxPage});
-    });
+    this.search();
   }
 
   changePage = (page) => {
     if (page !== this.state.page) {
-      const offset = (page - 1) * 20;
-      getMarvelCharactersCall(offset, this.state.filters.name).then(({characters, maxPage}) => {
-        this.setState({characters, page, maxPage});
-      });
+      this.search(page);
     }
   }
 
@@ -71,36 +62,23 @@ class App extends Component {
     }
   }
 
-  changeFilterByName = (event) => {
-    this.setState({
-      filters: {
-        name: event.target.value.trim()
-      }
-    });
-  }
-
   applyFilters = () => {
-    const {page} = this.state,
-      offset = (page - 1) * 20;
-    getMarvelCharactersCall(offset, this.state.filters.name).then(({characters, maxPage}) => {
-      this.setState({characters, maxPage});
-      this.refs.paginator.setPages(page, maxPage);
-    });
+    this.search(1, this.refs.filters.state.name)
+      .then(this.afterFilter);
   }
 
-  submitFilters = (event) => {
-    event.preventDefault();
-    this.applyFilters();
+  search = (page = 1, name = '') => {
+    const offset = page ? (page - 1) * 20 : 0;
+    return getMarvelCharactersCall(offset, name.trim())
+      .then(({ characters, maxPage }) => {
+        this.setState({ characters, maxPage, page })
+        return { characters, maxPage, page };
+      });
   }
 
-  resetFilters = () => {
-    const {page} = this.state,
-      offset = (page - 1) * 20;
-    getMarvelCharactersCall(offset).then(({characters, maxPage}) => {
-      this.setState({characters, maxPage, filters: {name: ''}});
-      this.refs.paginator.setPages(page, maxPage);
-    });
-  }
+  resetFilters = () => this.search().then(this.afterFilter)
+
+  afterFilter = ({ page, maxPage }) => this.refs.paginator.setPages(page, maxPage)
 
   render() {
     //TODO: Define an error messages container.
@@ -113,42 +91,20 @@ class App extends Component {
             {/*<li><a href="#"><span className="h4">Comics</span></a></li>*/}
           </ul>
         </nav>
-        <Panel collapsible className="Filters" bsStyle="primary" header="Filters">
-          <form onSubmit={this.submitFilters}>
-            <div className="row">
-              <div className="col-md-3">
-                <div className="form-group">
-                  <label htmlFor="filterByName">Name</label>
-                  <input id="filterByName"
-                         type="text"
-                         value={this.state.filters.name}
-                         className="form-control"
-                         onChange={this.changeFilterByName}/>
-                  <small className="help-block">
-                    Only characters matching the specified full character name (e.g. Spider-Man).
-                  </small>
-                </div>
-              </div>
-            </div>
-            <ButtonToolbar>
-              <Button onClick={this.resetFilters}>RESET</Button>
-              <Button bsStyle="primary" onClick={this.applyFilters}>APPLY</Button>
-            </ButtonToolbar>
-          </form>
-        </Panel>
+        <Filters ref="filters" onApply={this.applyFilters} onReset={this.resetFilters} />
         <div className="App-characters">
           {
             this.state.characters
-            // .filter(c => /^(.(?!image_not_available$))+$/.test(c.thumbnail.path))
-              .map(c => <Character key={c.id} instance={c}/>)
+              // .filter(c => /^(.(?!image_not_available$))+$/.test(c.thumbnail.path))
+              .map(c => <Character key={c.id} instance={c} />)
           }
         </div>
         <Paginator ref="paginator"
-                   page={this.state.page}
-                   maxPage={this.state.maxPage}
-                   onChangePage={this.changePage}
-                   onNext={this.nextPages}
-                   onPrevious={this.previousPages}/>
+          page={this.state.page}
+          maxPage={this.state.maxPage}
+          onChangePage={this.changePage}
+          onNext={this.nextPages}
+          onPrevious={this.previousPages} />
       </div>
     );
   }

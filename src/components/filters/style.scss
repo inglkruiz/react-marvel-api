@@ -1,0 +1,10 @@
+.Filters {
+  .panel {
+    &-heading:hover {
+      cursor: pointer;
+    }
+    &-title {
+      font-weight: 600;
+    }
+  }
+}
