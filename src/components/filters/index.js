@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Panel, ButtonToolbar, Button } from 'react-bootstrap';
+import { Panel, ButtonToolbar, Button, FormGroup, ControlLabel, FormControl, HelpBlock, Checkbox } from 'react-bootstrap';
 import './style.css';
 
 class Filters extends Component {
@@ -10,6 +10,7 @@ class Filters extends Component {
 
     this.state = {
       name: '',
+      exactMatch: false,
     };
   }
 
@@ -33,23 +34,27 @@ class Filters extends Component {
     }
   }
 
+  changeExactMatchFlag = (event) => {
+    this.setState({ exactMatch: event.target.checked })
+  }
+
   render() {
     return (
       <Panel collapsible className="Filters" bsStyle="primary" header="Filters">
         <form onSubmit={this.submit}>
           <div className="row">
-            <div className="col-md-3">
-              <div className="form-group">
-                <label htmlFor="filterByName">Name</label>
-                <input id="filterByName"
-                  type="text"
-                  value={this.state.name}
-                  className="form-control"
-                  onChange={this.changeFilterByName} />
-                <small className="help-block">
-                  Only characters matching the specified full character name (e.g. Spider-Man).
-                </small>
-              </div>
+            <div className="col-md-4">
+              <FormGroup controlId="filterByName">
+                <ControlLabel>Name</ControlLabel>
+                <FormControl type="text"
+                             value={this.state.name}
+                             onChange={this.changeFilterByName}/>
+                {!this.state.exactMatch && <HelpBlock>Matching with names that begin with the specified string (e.g. Sp).</HelpBlock>}
+              </FormGroup>
+              <Checkbox checked={this.state.exactMatch}
+                        onChange={this.changeExactMatchFlag}>
+                Match the specified full name (e.g. Spider-Man).
+              </Checkbox>
             </div>
           </div>
           <ButtonToolbar>

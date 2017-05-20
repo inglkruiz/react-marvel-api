@@ -5,9 +5,12 @@ import Character from './components/character';
 import Paginator from './components/paginator';
 import Filters from './components/filters';
 
-const getMarvelCharactersCall = (offset, name = '') => {
+const getMarvelCharactersCall = (offset, name = '', exactMatch = false) => {
   let url = `https://gateway.marvel.com/v1/public/characters?apikey=${process.env.REACT_APP_PUBLIC_API_KEY}&offset=${offset}`;
-  if (name) url += `&name=${name}`;
+  if (name) {
+    if (exactMatch) { url += `&name=${name}`; }
+    else { url += `&nameStartsWith=${name}`; }
+  }
   return fetch(url)
     .then(res => res.json())
     .then((resObj) => {
@@ -38,7 +41,10 @@ const getMarvelCharactersCall = (offset, name = '') => {
 class App extends Component {
   state = {
     filters: {
-      name: ''
+      name: {
+        value: '',
+        exactMatch: false,
+      }
     },
     characters: [],
     page: 0,
@@ -51,7 +57,7 @@ class App extends Component {
 
   changePage = (page) => {
     if (page !== this.state.page) {
-      this.search(page);
+      this.search(page, this.state.filters.name, this.state.filters.exactMatch);
     }
   }
 
@@ -66,15 +72,15 @@ class App extends Component {
   }
 
   applyFilters = () => {
-    this.search(1, this.refs.filters.state.name.trim())
+    this.search(1, this.refs.filters.state.name.trim(), this.refs.filters.state.exactMatch)
       .then(this.afterFilter);
   }
 
-  search = (page = 1, name = '') => {
+  search = (page = 1, name = '', exactMatch = false) => {
     const offset = page ? (page - 1) * 20 : 0;
-    return getMarvelCharactersCall(offset, name)
+    return getMarvelCharactersCall(offset, name, exactMatch)
       .then(({ characters, maxPage }) => {
-        this.setState({ characters, maxPage, page, filters: { name } })
+        this.setState({ characters, maxPage, page: characters.length ? page: 0, filters: { name, exactMatch } })
         return { characters, maxPage, page };
       });
   }
