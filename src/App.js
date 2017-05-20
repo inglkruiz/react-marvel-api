@@ -37,6 +37,9 @@ const getMarvelCharactersCall = (offset, name = '') => {
 
 class App extends Component {
   state = {
+    filters: {
+      name: ''
+    },
     characters: [],
     page: 0,
     maxPage: 0,
@@ -63,15 +66,15 @@ class App extends Component {
   }
 
   applyFilters = () => {
-    this.search(1, this.refs.filters.state.name)
+    this.search(1, this.refs.filters.state.name.trim())
       .then(this.afterFilter);
   }
 
   search = (page = 1, name = '') => {
     const offset = page ? (page - 1) * 20 : 0;
-    return getMarvelCharactersCall(offset, name.trim())
+    return getMarvelCharactersCall(offset, name)
       .then(({ characters, maxPage }) => {
-        this.setState({ characters, maxPage, page })
+        this.setState({ characters, maxPage, page, filters: { name } })
         return { characters, maxPage, page };
       });
   }
