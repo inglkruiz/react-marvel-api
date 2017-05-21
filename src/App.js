@@ -5,7 +5,7 @@ import Header from './components/header';
 import Character from './components/character';
 import Paginator from './components/paginator';
 import Filters from './components/filters';
-import { FormGroup, ControlLabel, FormControl, Form } from 'react-bootstrap';
+import SortByName from './components/sortByName'
 
 class App extends Component {
   state = {
@@ -90,24 +90,12 @@ class App extends Component {
         <Header />
         <nav className="navbar App-navbar">
           <ul className="nav navbar-nav">
-            <li className="active"><a href="#"><span className="h4">Characters</span></a></li>
+            <li className="active"><a href="/"><span className="h4">Characters</span></a></li>
             {/*<li><a href="#"><span className="h4">Comics</span></a></li>*/}
           </ul>
         </nav>
         <Filters ref="filters" onApply={this.applyFilters} onReset={this.resetFilters} />
-
-
-        <div className="Sort">
-          <Form inline className="text-right">
-            <FormGroup controlId="sortByName">
-              <ControlLabel>Sorting by Name</ControlLabel>{' '}
-              <FormControl componentClass="select" value={this.state.sortName} onChange={this.sortByName}>
-                <option value="">Asc.</option>
-                <option value="-">Desc</option>
-              </FormControl>
-            </FormGroup>
-          </Form>
-        </div>
+        <SortByName onChangeOption={this.sortByName}></SortByName>
         <div className="App-characters">
           {
             this.state.characters

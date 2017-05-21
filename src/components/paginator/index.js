@@ -19,12 +19,9 @@ const onlyNumbers = (event) => {
 };
 
 class Paginator extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pages: [],
-    };
-  }
+  state = {
+    pages: [],
+  };
 
   componentWillMount() {
     this.setPages(this.props.page, this.props.maxPage);

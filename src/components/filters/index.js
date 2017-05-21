@@ -4,15 +4,10 @@ import { Panel, ButtonToolbar, Button, FormGroup, ControlLabel, FormControl, Hel
 import './style.css';
 
 class Filters extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name: '',
-      exactMatch: false,
-    };
-  }
+  state = {
+    name: '',
+    exactMatch: false,
+  };
 
   changeFilterByName = (event) => {
     this.setState({
