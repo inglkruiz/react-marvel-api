@@ -1,3 +1,29 @@
+# ReactJs Marvel API Example
+
+This project is built to demonstrate my knowledge in ReactJs and other compliment technologies such as Redux, Flux, MobX, Bootstrap. 
+Also, how I as a Frontend Dev. structure an application with different features and components.
+
+## Requirements
+
+1. Git ([git-linux](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
+or [git-windows](https://git-for-windows.github.io/)).
+1. [Node.js](https://nodejs.org/en/) (latest stable version v6+).
+1. [Yarn](https://yarnpkg.com/en/docs/cli/) installed as a global package.
+1. Marvel API public key. Go to [Marvel Developer site](https://developer.marvel.com) and create your account.
+Find your public key [https://developer.marvel.com/account](https://developer.marvel.com/account).
+
+## Installation
+
+1. Clone this project
+1. Install dependencies running in command line > `yarn`
+1. Inside the project create a new file `.env` for environment variables. Add `REACT_APP_PUBLIC_API_KEY=yourAPIPublicKey` in that file.
+
+## Deploy for local use
+
+In your command line run `yarn start`
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
