@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
+import Promise from 'promise';
 import { getMarvelCharacters } from './lib/apiCalls';
 import './App.css';
 import Header from './components/header';
 import Character from './components/character';
 import Paginator from './components/paginator';
 import Filters from './components/filters';
-import SortByName from './components/sortByName'
+import SortByName from './components/sortByName';
+import Loading from './components/loading';
 
 class App extends Component {
   state = {
+    loading: false,
     filters: {
       name: {
         value: '',
@@ -51,6 +54,7 @@ class App extends Component {
   }
 
   search = (options = {}) => {
+    this.setState({ loading: true });
     const {
       page,
       name,
@@ -63,17 +67,26 @@ class App extends Component {
       sortName: this.state.sortName,
     }, options);
     const offset = page ? (page - 1) * 20 : 0;
-    return getMarvelCharacters(offset, name, exactMatch, sortName)
-      .then(({ characters, maxPage }) => {
-        this.setState({
-          characters,
-          maxPage,
-          page: characters.length ? page : 0,
-          filters: { name: { value: name, exactMatch } },
-          sortName,
-        });
-        return { characters, maxPage, page };
-      });
+
+    const p = new Promise((resolve, reject) => {
+      getMarvelCharacters(offset, name, exactMatch, sortName)
+        .then(({ characters, maxPage }) => {
+          this.setState({
+            characters,
+            maxPage,
+            page: characters.length ? page : 0,
+            filters: { name: { value: name, exactMatch } },
+            sortName,
+          });
+          resolve({ characters, maxPage, page });
+        })
+        .catch((error) => reject(error));
+    });
+    p.done(() => this.setState({ loading: false }));
+
+    return p;
+
+
   }
 
   resetFilters = () => this.search({ name: '', exactMatch: false }).then(this.afterFilter)
@@ -96,13 +109,13 @@ class App extends Component {
         </nav>
         <Filters ref="filters" onApply={this.applyFilters} onReset={this.resetFilters} />
         <SortByName onChangeOption={this.sortByName}></SortByName>
-        <div className="App-characters">
-          {
+        {!this.state.loading &&
+          <div className="App-characters">{
             this.state.characters
             // .filter(c => /^(.(?!image_not_available$))+$/.test(c.thumbnail.path))
-              .map(c => <Character key={c.id} instance={c} />)
-          }
-        </div>
+              .map(c => <Character key={c.id} instance={c}/>)
+        }</div>}
+        {this.state.loading && <Loading />}
         <Paginator ref="paginator"
                    page={this.state.page}
                    maxPage={this.state.maxPage}

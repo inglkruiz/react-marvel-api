@@ -1,0 +1,6 @@
+@import "variables";
+
+@mixin rma-font-oswald-light {
+  font-family: $rma-font-family-oswald;
+  font-weight: 300;
+}
