@@ -22,6 +22,7 @@ class App extends Component {
     characters: [],
     page: 0,
     maxPage: 0,
+    limitPerPage: 20,
   };
 
   componentWillMount() {
@@ -59,17 +60,19 @@ class App extends Component {
       page,
       name,
       exactMatch,
-      sortName
+      sortName,
+      limit,
     } = Object.assign({
       page: 1,
       name: this.state.filters.name.value,
       exactMatch: this.state.filters.name.exactMatch,
       sortName: this.state.sortName,
+      limit: this.state.limitPerPage,
     }, options);
-    const offset = page ? (page - 1) * 20 : 0;
+    const offset = page ? (page - 1) * limit : 0;
 
     const p = new Promise((resolve, reject) => {
-      getMarvelCharacters(offset, name, exactMatch, sortName)
+      getMarvelCharacters({ offset, name, exactMatch, sortName, limit })
         .then(({ characters, maxPage }) => {
           this.setState({
             characters,
@@ -77,6 +80,7 @@ class App extends Component {
             page: characters.length ? page : 0,
             filters: { name: { value: name, exactMatch } },
             sortName,
+            limitPerPage: limit,
           });
           resolve({ characters, maxPage, page });
         })
@@ -85,17 +89,15 @@ class App extends Component {
     p.done(() => this.setState({ loading: false }));
 
     return p;
-
-
   }
 
   resetFilters = () => this.search({ name: '', exactMatch: false }).then(this.afterFilter)
 
   afterFilter = ({ page, maxPage }) => this.refs.paginator.setPages(page, maxPage)
 
-  sortByName = (event) => {
-    this.search({ page: this.state.page, sortName: event.target.value });
-  }
+  sortByName = (event) => this.search({ page: this.state.page, sortName: event.target.value })
+
+  changeLimitPerPage = (event) => this.search({ page: this.state.page, limit: event.target.value })
 
   render() {
     return (
@@ -108,7 +110,7 @@ class App extends Component {
           </ul>
         </nav>
         <Filters ref="filters" onApply={this.applyFilters} onReset={this.resetFilters} />
-        <SortByName onChangeOption={this.sortByName}></SortByName>
+        <SortByName onChangeSort={this.sortByName} onChangeLimit={this.changeLimitPerPage} />
         {!this.state.loading &&
           <div className="App-characters">{
             this.state.characters

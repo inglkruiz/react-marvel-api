@@ -5,12 +5,18 @@ import './style.css';
 
 class SortByName extends Component {
   state = {
-    option: ''
+    sort: '',
+    perPage: 20,
   };
 
-  change = (event) => {
-    this.setState({ option: event.target.value });
-    this.props.onChangeOption(event);
+  changeSort = (event) => {
+    this.setState({ sort: event.target.value });
+    this.props.onChangeSort(event);
+  }
+
+  changePerPage = (event) => {
+    this.setState({ perPage: event.target.value });
+    this.props.onChangeLimit(event);
   }
 
   render() {
@@ -19,10 +25,20 @@ class SortByName extends Component {
         <Form inline className="text-right">
           <FormGroup controlId="sortByName">
             <ControlLabel>Sorting by Name</ControlLabel>{' '}
-            <FormControl componentClass="select" value={this.state.option} onChange={this.change}>
+            <FormControl componentClass="select" value={this.state.sort} onChange={this.changeSort}>
               <option value="">Asc.</option>
               <option value="-">Desc</option>
             </FormControl>
+          </FormGroup>
+          {' '}
+          <FormGroup controlId="resultsPerPage">
+            <FormControl componentClass="select" value={this.state.perPage} onChange={this.changePerPage}>
+              <option value={20}>20</option>
+              <option value={40}>40</option>
+              <option value={60}>60</option>
+              <option value={100}>100</option>
+            </FormControl>{' '}
+            <ControlLabel>results per page</ControlLabel>{' '}
           </FormGroup>
         </Form>
       </div>
@@ -31,7 +47,13 @@ class SortByName extends Component {
 }
 
 SortByName.PropTypes = {
-  onChangeOption: PropTypes.func,
+  onChangeSort: PropTypes.func,
+  onChangeLimit: PropTypes.func,
+};
+
+SortByName.defaultProps = {
+  onChangeSort: () => console.warn('Component onChangeSort not defined.'),
+  onChangeLimit: () => console.warn('Component onChangeLimit not defined.'),
 };
 
 export default SortByName;
