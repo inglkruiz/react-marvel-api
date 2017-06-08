@@ -1,3 +1,6 @@
+const marvelURL = 'https://gateway.marvel.com/v1/public/',
+  apiKey = `apikey=${process.env.REACT_APP_PUBLIC_API_KEY}`;
+
 const getMarvelCharacters = (options) => {
   const {
     offset,
@@ -14,7 +17,7 @@ const getMarvelCharacters = (options) => {
   }, options);
 
   let url =
-    `https://gateway.marvel.com/v1/public/characters?apikey=${process.env.REACT_APP_PUBLIC_API_KEY}&offset=${offset}&orderBy=${sortName}name&limit=${limit}`;
+    `${marvelURL}characters?${apiKey}&offset=${offset}&orderBy=${sortName}name&limit=${limit}`;
   if (name) {
     if (exactMatch) { url += `&name=${name}`; }
     else { url += `&nameStartsWith=${name}`; }

@@ -39,4 +39,34 @@
     margin-top: auto;
     border-radius: 0;
   }
+
+  &-modal {
+    .modal-title {
+      font-family: $rma-font-family-oswald;
+    }
+
+    .modal-body {
+      display: flex;
+      flex-flow: row wrap;
+    }
+
+    &-img {
+      height: 200px;
+      width: 200px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    &-desc {
+      flex: 1 1 0;
+    }
+
+    &-tabs {
+      width: 100%;
+
+      .nav-tabs {
+        margin-bottom: 10px;
+      }
+    }
+  }
 }
