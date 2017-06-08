@@ -63,11 +63,11 @@ class Paginator extends Component {
         }
         else {
           this.props.onChangePage(page);
-          this.refs.input.value = '';
+          this.input.value = '';
         }
       } catch (e) {
         console.error(e);
-        this.refs.input.value = '';
+        this.input.value = '';
       }
     }
   }
@@ -78,7 +78,7 @@ class Paginator extends Component {
         <div className="form-group-lg text-center center-block Paginator-go2Page">
           <label htmlFor="go2Page">Go to Page</label>
           <input id="go2Page"
-            ref="input"
+            ref={input => this.input = input}
             type="text"
             maxLength={2}
             className="form-control text-center"

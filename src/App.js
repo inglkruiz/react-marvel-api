@@ -49,8 +49,8 @@ class App extends Component {
 
   applyFilters = () => {
     this.search({
-      name: this.refs.filters.state.name.trim(),
-      exactMatch: this.refs.filters.state.exactMatch,
+      name: this.filters.state.name.trim(),
+      exactMatch: this.filters.state.exactMatch,
     }).then(this.afterFilter);
   }
 
@@ -93,7 +93,7 @@ class App extends Component {
 
   resetFilters = () => this.search({ name: '', exactMatch: false }).then(this.afterFilter)
 
-  afterFilter = ({ page, maxPage }) => this.refs.paginator.setPages(page, maxPage)
+  afterFilter = ({ page, maxPage }) => this.paginator.setPages(page, maxPage)
 
   sortByName = (event) => this.search({ page: this.state.page, sortName: event.target.value })
 
@@ -109,7 +109,7 @@ class App extends Component {
             {/*<li><a href="#"><span className="h4">Comics</span></a></li>*/}
           </ul>
         </nav>
-        <Filters ref="filters" onApply={this.applyFilters} onReset={this.resetFilters} />
+        <Filters ref={filters => this.filters = filters} onApply={this.applyFilters} onReset={this.resetFilters} />
         <SortByName onChangeSort={this.sortByName} onChangeLimit={this.changeLimitPerPage} />
         {!this.state.loading &&
           <div className="App-characters">{
@@ -118,7 +118,7 @@ class App extends Component {
               .map(c => <Character key={c.id} instance={c}/>)
         }</div>}
         {this.state.loading && <Loading />}
-        <Paginator ref="paginator"
+        <Paginator ref={paginator => this.paginator = paginator}
                    page={this.state.page}
                    maxPage={this.state.maxPage}
                    onChangePage={this.changePage}
