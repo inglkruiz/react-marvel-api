@@ -24,7 +24,9 @@ class Character extends Component {
     this.comics = instance.comics.items;
     this.series = instance.series.items;
     this.stories = instance.stories.items;
-    this.marvelDetail = instance.urls.find(r => r.type === 'detail');
+    this.detail = instance.urls.find(r => r.type === 'detail');
+    this.wiki = instance.urls.find(r => r.type === 'wiki');
+    this.comicLink = instance.urls.find(r => r.type === 'comiclink');
   }
 
   showDetails = (event) => {
@@ -54,9 +56,23 @@ class Character extends Component {
             <div className="Character-modal-desc">
               <h4>Description</h4>
               <p>{this.fullDescription}</p>
-              {this.marvelDetail && <a target="_blank" className="btn-link" href={this.marvelDetail.url} rel="noopener noreferrer">Read more on Marvel Official Page</a>}
+              {this.detail &&
+                <a target="_blank" className="btn-link btn-block"
+                   href={this.detail.url} rel="noopener noreferrer">
+                  Read more on Marvel Official Page</a>
+              }
+              {this.wiki &&
+                <a target="_blank" className="btn-link btn-block"
+                   href={this.wiki.url} rel="noopener noreferrer">
+                  Read more on Marvel Universe Wiki</a>
+                }
+              {this.comicLink &&
+                <a target="_blank" className="btn-link btn-block"
+                   href={this.comicLink.url} rel="noopener noreferrer">
+                  Read Comic Public Info</a>
+              }
             </div>
-            <Tabs defaultActiveKey={1} id="characterTabs" className="Character-modal-tabs">
+            <Tabs defaultActiveKey={1} id="characterTabs" className="hidden-xs Character-modal-tabs">
               <Tab eventKey={1} title={`Comics (${this.comics.length})`}>
                 {this.comics.length ?
                   <ul className="list-inline">

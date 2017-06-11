@@ -22,7 +22,7 @@ class SortByName extends Component {
   render() {
     return (
       <div className="SortByName">
-        <Form inline className="text-right">
+        <Form inline className="SortByName-form">
           <FormGroup controlId="sortByName">
             <ControlLabel>Sorting by Name</ControlLabel>{' '}
             <FormControl componentClass="select" value={this.state.sort} onChange={this.changeSort}>
@@ -30,15 +30,15 @@ class SortByName extends Component {
               <option value="-">Desc</option>
             </FormControl>
           </FormGroup>
-          {' '}
+          <span className="hidden-xs"> - </span>
           <FormGroup controlId="resultsPerPage">
+            <ControlLabel>Results per page</ControlLabel>{' '}
             <FormControl componentClass="select" value={this.state.perPage} onChange={this.changePerPage}>
               <option value={20}>20</option>
               <option value={40}>40</option>
               <option value={60}>60</option>
               <option value={100}>100</option>
             </FormControl>{' '}
-            <ControlLabel>results per page</ControlLabel>{' '}
           </FormGroup>
         </Form>
       </div>

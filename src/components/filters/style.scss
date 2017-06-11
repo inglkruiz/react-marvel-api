@@ -1,5 +1,13 @@
+@import "../../variables";
+
 .Filters {
-  .panel {
+  &.panel {
+    margin-bottom: 5px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      margin-bottom: 20px;
+    }
+
     &-heading:hover {
       cursor: pointer;
     }

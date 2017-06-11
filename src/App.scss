@@ -24,6 +24,12 @@
         bottom: 1px #b5b5b5 solid;
       }
       .navbar-nav {
+        padding: 0 3px;
+
+        @media screen and (min-width: $screen-sm-min) {
+          padding: 0;
+        }
+
         a {
           color: black;
           &:hover {
@@ -44,9 +50,20 @@
     display: flex;
     flex-flow: row wrap;
     .Character {
-      width: 24.5%;
-      &:not(:nth-child(4n+1)) {
-        margin-left: .66%;
+      width: 100%;
+
+      @media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+        width: 33%;
+        &:not(:nth-child(3n+1)) {
+          margin-left: .5%;
+        }
+      }
+
+      @media screen and (min-width: $screen-md-min) {
+        width: 24.5%;
+        &:not(:nth-child(4n+1)) {
+          margin-left: .66%;
+        }
       }
     }
   }
