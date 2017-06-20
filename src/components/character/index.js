@@ -42,7 +42,7 @@ class Character extends Component {
     return (
       <div className="Character">
         <div className="text-center Character-name"><span className="h3">{this.name}</span></div>
-        <div className="Character-image" style={{backgroundImage: `url('${this.image}')`}} />
+        <img className="Character-image" src={this.image} alt={this.name}/>
         <p className="Character-description">
           {this.description}
         </p>
@@ -104,28 +104,6 @@ class Character extends Component {
     );
   }
 }
-
-// const Character = (props) => {
-//   const { instance } = props,
-//     image = `${instance.thumbnail.path}.${instance.thumbnail.extension}`,
-//     description = !instance.description.length ? 'Description not available.' :
-//       instance.description.length > 150 ?
-//         instance.description.substring(0, 150).split('').concat('...').join('') :
-//         instance.description;
-//   return (
-//     <div className="Character">
-//       <div className="text-center Character-name"><span className="h3">{instance.name}</span></div>
-//       <div className="Character-image" style={{backgroundImage: `url('${image}')`}} />
-//       <p className="Character-description">
-//         {`${description} `}
-//       </p>
-//       <button type="button" className="btn btn-primary btn-lg Character-link">Read more</button>
-//       <Modal show={}>
-//
-//       </Modal>
-//     </div>
-//   );
-// };
 
 Character.propTypes = {
   instance: PropTypes.object.isRequired,

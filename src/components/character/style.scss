@@ -23,15 +23,12 @@
 
   &-image {
     height: 292px;
-    background: {
-      position: center;
-      size: cover;
-      repeat: no-repeat;
-    };
+    width: 100%;
   }
 
   &-description {
     padding: 5px 10px 0;
+    background-color: $rma-white;
   }
 
   &-link.btn {

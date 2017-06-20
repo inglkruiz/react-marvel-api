@@ -1,0 +1,18 @@
+@import "../../variables";
+
+.Comics {
+  &-list {
+    display: flex;
+    flex-flow: row wrap;
+    .Comic {
+      width: 100%;
+
+      @media screen and (min-width: $screen-md-min) {
+        width: 49.5%;
+        &:not(:nth-child(2n+1)) {
+          margin-left: .5%;
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
 const marvelURL = 'https://gateway.marvel.com/v1/public/',
-  apiKey = `apikey=${process.env.REACT_APP_PUBLIC_API_KEY}`;
+  apiKey = `apikey=${process.env.REACT_APP_PUBLIC_API_KEY}`,
+  STATUS_CODE_OK = 200;
 
 const getMarvelCharacters = (options) => {
   const {
@@ -26,7 +27,7 @@ const getMarvelCharacters = (options) => {
     .then(res => res.json())
     .then((resObj) => {
       try {
-        if (resObj.code === 200) {
+        if (resObj.code === STATUS_CODE_OK) {
           if (offset > resObj.data.total) {
             throw new Error('Page does not exist.');
           } else {
@@ -49,6 +50,30 @@ const getMarvelCharacters = (options) => {
     });
 }
 
+const getMarvelComics = () => {
+  let url =
+    `${marvelURL}comics?${apiKey}`;
+  return fetch(url)
+    .then(res => res.json())
+    .then((resObj) => {
+      try {
+        if (resObj.code === STATUS_CODE_OK) {
+          return {
+            comics: resObj.data.results,
+          };
+        } else {
+          throw new Error(`Marvel API bad response. Status code ${resObj.code}.`);
+        }
+      } catch (e) {
+        console.error(e);
+        return {
+          comics: [],
+        };
+      }
+    });
+};
+
 export {
   getMarvelCharacters,
+  getMarvelComics,
 };

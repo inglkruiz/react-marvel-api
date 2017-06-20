@@ -1,0 +1,25 @@
+@import "../../variables";
+
+.Characters {
+  &-list {
+    display: flex;
+    flex-flow: row wrap;
+    .Character {
+      width: 100%;
+
+      @media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+        width: 33%;
+        &:not(:nth-child(3n+1)) {
+          margin-left: .5%;
+        }
+      }
+
+      @media screen and (min-width: $screen-md-min) {
+        width: 24.5%;
+        &:not(:nth-child(4n+1)) {
+          margin-left: .66%;
+        }
+      }
+    }
+  }
+}

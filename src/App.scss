@@ -4,66 +4,12 @@
   margin: 0 auto;
   width: 100%;
   max-width: $screen-lg-desktop;
-  .Filters {
-    .panel {
-      &-heading:hover {
-        cursor: pointer;
-      }
-      &-title {
-        font-weight: 600;
-      }
-    }
-  }
   &-navbar {
     font-family: $rma-font-family-oswald;
     &.navbar {
-      @include box-shadow(0 2px 5px 0 rgba(0, 0, 0, 0.4));
-      border: 0;
-      border: {
-        radius: 0;
-        bottom: 1px #b5b5b5 solid;
-      }
+      @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.4));
       .navbar-nav {
-        padding: 0 3px;
-
-        @media screen and (min-width: $screen-sm-min) {
-          padding: 0;
-        }
-
-        a {
-          color: black;
-          &:hover {
-            color: $rma-red;
-            background-color: initial;
-          }
-          .h4 {
-            font-weight: 600;
-          }
-        }
-        & > li.active > a {
-          color: $rma-red;
-        }
-      }
-    }
-  }
-  &-characters {
-    display: flex;
-    flex-flow: row wrap;
-    .Character {
-      width: 100%;
-
-      @media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
-        width: 33%;
-        &:not(:nth-child(3n+1)) {
-          margin-left: .5%;
-        }
-      }
-
-      @media screen and (min-width: $screen-md-min) {
-        width: 24.5%;
-        &:not(:nth-child(4n+1)) {
-          margin-left: .66%;
-        }
+        margin: 0;
       }
     }
   }

@@ -1,0 +1,33 @@
+@import "../../variables";
+
+.Comic {
+  @include box-shadow(0 2px 4px 0 rgba(0, 0, 0, 0.4));
+  display: flex;
+  flex-flow: row wrap;
+  margin-bottom: 15px;
+  border: {
+    width: 1px;
+    style: solid;
+    color: $gray-light;
+  };
+
+  &-image {
+    width: 187.5px;
+    margin: 0 auto;
+    height: 250px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      margin: 0;
+    }
+  }
+
+  &-body {
+    padding: 10px;
+    flex: 0 0 100%;
+    overflow-y: auto;
+
+    @media screen and (min-width: $screen-sm-min) {
+      flex: 1;
+    }
+  }
+}
