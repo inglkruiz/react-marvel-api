@@ -3,26 +3,39 @@
   "version": "0.1.1",
   "private": true,
   "dependencies": {
-    "immutability-helper": "^2.2.0",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-scripts": "1.0.10"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "bootstrap-sass": "^3.3.7",
-    "node-sass": "^4.5.2",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-plugin-prettier": "^2.1.2",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.1",
+    "node-sass-chokidar": "^0.0.3",
     "npm-run-all": "^4.0.2",
-    "react-scripts": "1.0.7"
+    "prettier": "^1.5.2",
+    "source-map-explorer": "^1.4.0"
   },
   "scripts": {
-    "build-css": "node-sass src/ -o src/",
-    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
+    "precommit": "lint-staged",
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "analyze": "npm run build && source-map-explorer build/static/js/main.*"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
   }
 }
